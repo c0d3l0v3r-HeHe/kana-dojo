@@ -41,8 +41,8 @@ const PickGame = ({ isHidden }: PickGameProps) => {
     wrongsToDecrease: 2
   });
 
-  const score = useStatsStore(state => state.score);
-  const setScore = useStatsStore(state => state.setScore);
+  const score = useStatsStore((state) => state.score);
+  const setScore = useStatsStore((state) => state.setScore);
 
   const speedStopwatch = useStopwatch({ autoStart: false });
 
@@ -58,10 +58,10 @@ const PickGame = ({ isHidden }: PickGameProps) => {
   const { playErrorTwice } = useError();
   const { trigger: triggerCrazyMode } = useCrazyModeTrigger();
 
-  const kanaGroupIndices = useKanaStore(state => state.kanaGroupIndices);
+  const kanaGroupIndices = useKanaStore((state) => state.kanaGroupIndices);
 
-  const selectedKana = kanaGroupIndices.map(i => kana[i].kana).flat();
-  const selectedRomaji = kanaGroupIndices.map(i => kana[i].romanji).flat();
+  const selectedKana = kanaGroupIndices.map((i) => kana[i].kana).flat();
+  const selectedRomaji = kanaGroupIndices.map((i) => kana[i].romanji).flat();
 
   // For normal pick mode
   const selectedPairs = Object.fromEntries(
@@ -208,7 +208,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
         setFeedback(
           <>
             <span>{`${correctKanaChar} = ${correctRomajiChar} `}</span>
-            <CircleCheck className='inline text-[var(--main-color)]' />
+            <CircleCheck className="inline text-[var(--main-color)]" />
           </>
         );
       } else {
@@ -216,7 +216,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
         setFeedback(
           <>
             <span>{`${correctKanaChar} ≠ ${selectedChar} `}</span>
-            <CircleX className='inline text-[var(--main-color)]' />
+            <CircleX className="inline text-[var(--main-color)]" />
           </>
         );
       }
@@ -237,7 +237,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
         setFeedback(
           <>
             <span>{`${correctRomajiCharReverse} = ${correctKanaCharReverse} `}</span>
-            <CircleCheck className='inline text-[var(--main-color)]' />
+            <CircleCheck className="inline text-[var(--main-color)]" />
           </>
         );
       } else {
@@ -245,7 +245,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
         setFeedback(
           <>
             <span>{`${correctRomajiCharReverse} ≠ ${selectedChar} `}</span>
-            <CircleX className='inline text-[var(--main-color)]' />
+            <CircleX className="inline text-[var(--main-color)]" />
           </>
         );
       }
@@ -302,18 +302,18 @@ const PickGame = ({ isHidden }: PickGameProps) => {
       )}
     >
       <GameIntel gameMode={gameMode} feedback={feedback} />
-      <div className='flex flex-row items-center gap-1'>
-        <p className='text-8xl sm:text-9xl font-medium'>{displayChar}</p>
+      <div className="flex flex-row items-center gap-1">
+        <p className="text-8xl sm:text-9xl font-medium">{displayChar}</p>
       </div>
       {/* First row - always 3 options */}
-      <div className='flex flex-row w-full gap-5 sm:gap-0 sm:justify-evenly'>
+      <div className="flex flex-row w-full gap-5 sm:gap-0 sm:justify-evenly">
         {topRow.map((variantChar: string, i: number) => (
           <button
-            ref={elem => {
+            ref={(elem) => {
               buttonRefs.current[i] = elem;
             }}
             key={variantChar + i}
-            type='button'
+            type="button"
             disabled={wrongSelectedAnswers.includes(variantChar)}
             className={clsx(
               'text-5xl font-semibold pb-6 pt-3 w-full sm:w-1/5 flex flex-row justify-center items-center gap-1 relative',
@@ -329,7 +329,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
             <span>{variantChar}</span>
             <span
               className={clsx(
-                'absolute right-2 hidden lg:inline text-xs rounded-full bg-[var(--border-color)] px-1',
+                'absolute right-4 top-1/2 -translate-y-1/2 hidden lg:inline-flex h-5 min-w-5 items-center justify-center text-xs leading-none rounded-full bg-[var(--border-color)] px-1',
                 wrongSelectedAnswers.includes(variantChar)
                   ? 'text-[var(--border-color)]'
                   : 'text-[var(--secondary-color)]'
@@ -342,14 +342,14 @@ const PickGame = ({ isHidden }: PickGameProps) => {
       </div>
       {/* Second row - progressively fills with 1-3 additional options */}
       {bottomRow.length > 0 && (
-        <div className='flex flex-row w-full gap-5 sm:gap-0 sm:justify-evenly'>
+        <div className="flex flex-row w-full gap-5 sm:gap-0 sm:justify-evenly">
           {bottomRow.map((variantChar: string, i: number) => (
             <button
-              ref={elem => {
+              ref={(elem) => {
                 buttonRefs.current[3 + i] = elem;
               }}
               key={variantChar + i}
-              type='button'
+              type="button"
               disabled={wrongSelectedAnswers.includes(variantChar)}
               className={clsx(
                 'text-5xl font-semibold pb-6 pt-3 w-full sm:w-1/5 flex flex-row justify-center items-center gap-1 relative',
@@ -365,7 +365,7 @@ const PickGame = ({ isHidden }: PickGameProps) => {
               <span>{variantChar}</span>
               <span
                 className={clsx(
-                  'absolute right-2 hidden lg:inline text-xs rounded-full bg-[var(--border-color)] px-1',
+                  'absolute right-4 top-1/2 -translate-y-1/2 hidden lg:inline-flex h-5 min-w-5 items-center justify-center text-xs leading-none rounded-full bg-[var(--border-color)] px-1',
                   wrongSelectedAnswers.includes(variantChar)
                     ? 'text-[var(--border-color)]'
                     : 'text-[var(--secondary-color)]'

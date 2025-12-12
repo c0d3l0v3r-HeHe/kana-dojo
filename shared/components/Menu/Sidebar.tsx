@@ -157,7 +157,7 @@ const Sidebar = () => {
         <span className="max-lg:hidden">Preferences</span>
       </Link>
 
-      <div className="max-lg:hidden w-full mt-3 px-4 text-xs  uppercase text-[var(--secondary-color)] opacity-70">
+      <div className="max-lg:hidden w-full mt-3 px-4 text-xs   text-[var(--secondary-color)] opacity-70">
         Experiments
       </div>
       <Link
@@ -171,7 +171,7 @@ const Sidebar = () => {
         onClick={playClick}
       >
         <Leaf />
-        <span>Zen</span>
+        <span>Zen Popper</span>
       </Link>
     </div>
   );
