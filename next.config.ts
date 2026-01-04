@@ -83,7 +83,7 @@ const nextConfig: NextConfig = {
       },
       {
         // Kanji JSON data files - cache for 1 week
-        source: '/kanji/:path*.json',
+        source: '/data-kanji/:path*.json',
         headers: [
           {
             key: 'Cache-Control',
@@ -93,7 +93,7 @@ const nextConfig: NextConfig = {
       },
       {
         // Vocab JSON data files - cache for 1 week
-        source: '/vocab/:path*.json',
+        source: '/data-vocab/:path*.json',
         headers: [
           {
             key: 'Cache-Control',
