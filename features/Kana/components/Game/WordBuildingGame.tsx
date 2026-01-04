@@ -473,17 +473,29 @@ const WordBuildingGame = ({
   // Handle tile click - add or remove
   const handleTileClick = useCallback(
     (char: string) => {
-      if (isChecking) return;
+      if (isChecking && bottomBarState !== 'wrong') return;
+
       playClick();
 
+      // If in wrong state, reset to check state and continue with normal tile logic
+      if (bottomBarState === 'wrong') {
+        setIsChecking(false);
+        setBottomBarState('check');
+        // Restart timing for the retry
+        speedStopwatch.reset();
+        speedStopwatch.start();
+      }
+
+      // Normal tile add/remove logic
       if (placedTiles.includes(char)) {
         setPlacedTiles(prev => prev.filter(c => c !== char));
       } else {
         setPlacedTiles(prev => [...prev, char]);
       }
     },
-    [isChecking, placedTiles, playClick]
+    [isChecking, bottomBarState, placedTiles, playClick]
   );
+  // Note: speedStopwatch deliberately excluded - only calling methods
 
   const handleClearPlaced = useCallback(() => {
     if (isChecking) return;
@@ -542,7 +554,7 @@ const WordBuildingGame = ({
                   id={`tile-${char}`}
                   char={char}
                   onClick={() => handleTileClick(char)}
-                  isDisabled={isChecking}
+                  isDisabled={isChecking && bottomBarState !== 'wrong'}
                 />
               </motion.div>
             ))}
@@ -578,7 +590,7 @@ const WordBuildingGame = ({
                     id={`tile-${char}`}
                     char={char}
                     onClick={() => handleTileClick(char)}
-                    isDisabled={isChecking}
+                    isDisabled={isChecking && bottomBarState !== 'wrong'}
                   />
                 </div>
               )}

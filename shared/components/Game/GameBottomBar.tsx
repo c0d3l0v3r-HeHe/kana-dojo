@@ -55,7 +55,7 @@ export const GameBottomBar = ({
       {/* Feedback Container: Hidden on mobile when no feedback, always visible on desktop */}
       <div
         className={clsx(
-          'w-full items-center justify-start sm:justify-center sm:flex sm:w-1/2',
+          'w-full items-center justify-start sm:flex sm:w-1/2 sm:justify-center',
           showFeedback ? 'flex' : 'hidden'
         )}
       >
@@ -100,20 +100,25 @@ export const GameBottomBar = ({
               'w-full px-6 py-2.5 text-lg font-medium transition-all duration-150 sm:w-auto sm:px-12 sm:py-3 sm:text-xl',
               !canCheck &&
                 !showContinue &&
-                actionLabel?.toLowerCase() !== 'try again' &&
+                state !== 'wrong' &&
                 'cursor-default opacity-60'
             )}
             onClick={onAction}
           >
-            {actionLabel?.toLowerCase() === 'try again' ? (
+            {state === 'wrong' ? (
               <RotateCcw className='h-8 w-8' />
-            ) : showContinue ? (
+            ) : state === 'correct' ? (
               <CircleArrowRight className='h-8 w-8' />
             ) : (
               <CircleCheck className='h-8 w-8' />
             )}
             <span className=''>
-              {actionLabel || (showContinue ? 'next' : 'check')}
+              {actionLabel ||
+                (state === 'correct'
+                  ? 'next'
+                  : state === 'wrong'
+                    ? 'try again'
+                    : 'check')}
             </span>
           </ActionButton>
         </div>
